@@ -144,12 +144,43 @@ void searchContact(AddressBook *addressBook)
 
 void editContact(AddressBook *addressBook)
 {
-	/* Define the logic for Editcontact */
+    char name[50];
+	printf("Enter the name of the contact you want to edit: ");
+    scanf(" %[^\n]", name);
+    for (int i = 0; i < addressBook->contactCount; i++){
+        if(strcmp(addressBook->contacts[i].name,name) == 0){
+            printf("Enter the new details :\n");
+            printf("Enter the name : ");
+            scanf(" %[^\n]", addressBook->contacts[i].name);
+            printf("Enter the phone : ");  
+            scanf("%s", addressBook->contacts[i].phone);
+            printf("Enter the email : ");
+            scanf("%s", addressBook->contacts[i].email);
+            printf("Contact updated successfully!");
+            return;
+        }
+    }
+
+    printf("Contact not found! Enter the correct existing name to edit the contact.");
     
 }
 
 void deleteContact(AddressBook *addressBook)
 {
-	/* Define the logic for deletecontact */
+    char name[50];
+	printf("Enter the name of the contact you want to delete: ");
+    scanf(" %[^\n]", name);
+        for (int i = 0; i < addressBook->contactCount; i++){
+            if(strcmp(addressBook->contacts[i].name,name) == 0){
+                for (int j = i; j <addressBook->contactCount - 1; j++){
+                    addressBook->contacts[j] = addressBook->contacts[j+1];
+                }
+                addressBook->contactCount--;
+                printf("Contact deleted successfully!");
+                return;
+            }
+    }
+
+    printf("Contact not found! Enter the correct existing name to delete the contact.");
    
 }
