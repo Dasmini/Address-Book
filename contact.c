@@ -95,7 +95,7 @@ void createContact(AddressBook *addressBook)
     
 }
 
-void searchContact(AddressBook *addressBook) 
+int searchContact(AddressBook *addressBook) 
 {
     int search_choice;
     printf("Select the field you want to search by :");
@@ -109,7 +109,7 @@ void searchContact(AddressBook *addressBook)
             for (int i = 0; i < addressBook->contactCount; i++){
                 if(strcmp(addressBook->contacts[i].name, name) == 0){
                     printf("Contact found : Name: %s, Phone: %s, Email: %s\n", addressBook->contacts[i].name, addressBook->contacts[i].phone, addressBook->contacts[i].email);
-                    return;
+                    return i;
                 }
             }
             break;
@@ -120,7 +120,7 @@ void searchContact(AddressBook *addressBook)
             for (int i = 0; i < addressBook->contactCount; i++){
                 if(strcmp(addressBook->contacts[i].phone, phone) == 0){
                     printf("Contact found : Name: %s, Phone: %s, Email: %s\n", addressBook->contacts[i].name, addressBook->contacts[i].phone, addressBook->contacts[i].email);
-                    return;
+                    return i;
                 }
             }
             break;
@@ -131,55 +131,67 @@ void searchContact(AddressBook *addressBook)
             for (int i = 0; i < addressBook->contactCount; i++){
                 if(strcmp(addressBook->contacts[i].email, email) == 0){
                     printf("Contact found : Name: %s, Phone: %s, Email: %s\n", addressBook->contacts[i].name, addressBook->contacts[i].phone, addressBook->contacts[i].email);
-                    return;
+                    return i;
                 }
             }
             break;
         default:
             printf("Invalid selection");
+            return -1;
             break;
     }
     
 }
 
 void editContact(AddressBook *addressBook)
-{
-    char name[50];
-	printf("Enter the name of the contact you want to edit: ");
-    scanf(" %[^\n]", name);
-    for (int i = 0; i < addressBook->contactCount; i++){
-        if(strcmp(addressBook->contacts[i].name,name) == 0){
+{   
+    int edit_choice;
+    int ret = searchContact(addressBook);
+    printf("Enter the field you want to edit :\n 1. Name\n 2. Phone\n 3. Email \n4.More than one field\n");
+    scanf("%d", &edit_choice);
+    switch(edit_choice){
+        case 1:
+            printf("Enter the name : ");
+            scanf(" %[^\n]", addressBook->contacts[ret].name);
+            break;
+        case 2:
+            printf("Enter the phone : ");  
+            scanf("%s", addressBook->contacts[ret].phone);
+            break;
+        case 3:
+            printf("Enter the email : ");
+            scanf("%s", addressBook->contacts[ret].email);
+            break;
+        case 4:
             printf("Enter the new details :\n");
             printf("Enter the name : ");
-            scanf(" %[^\n]", addressBook->contacts[i].name);
+            scanf(" %[^\n]", addressBook->contacts[ret].name);
             printf("Enter the phone : ");  
-            scanf("%s", addressBook->contacts[i].phone);
+            scanf("%s", addressBook->contacts[ret].phone);
             printf("Enter the email : ");
-            scanf("%s", addressBook->contacts[i].email);
+            scanf("%s", addressBook->contacts[ret].email);
             printf("Contact updated successfully!");
-            return;
-        }
+            break;
+        default:
+            printf("Contact not found! Enter the correct existing detail to edit the contact.");
+            break;
     }
-
-    printf("Contact not found! Enter the correct existing name to edit the contact.");
     
+    return;
 }
 
 void deleteContact(AddressBook *addressBook)
 {
-    char name[50];
-	printf("Enter the name of the contact you want to delete: ");
-    scanf(" %[^\n]", name);
-        for (int i = 0; i < addressBook->contactCount; i++){
-            if(strcmp(addressBook->contacts[i].name,name) == 0){
-                for (int j = i; j <addressBook->contactCount - 1; j++){
-                    addressBook->contacts[j] = addressBook->contacts[j+1];
-                }
-                addressBook->contactCount--;
-                printf("Contact deleted successfully!");
-                return;
+    printf("Contact Deletion:\n");
+    int ret = searchContact(addressBook);
+        if(ret != -1){
+            for (int j = ret; j < addressBook->contactCount - 1; j++){
+                addressBook->contacts[j] = addressBook->contacts[j+1];
             }
-    }
+            addressBook->contactCount--;
+            printf("Contact deleted successfully!");
+            return;
+        }
 
     printf("Contact not found! Enter the correct existing name to delete the contact.");
    
