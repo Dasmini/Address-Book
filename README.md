@@ -11,6 +11,8 @@ A simple Address Book application developed in C.
 - Delete Contact
 - Save contacts to file
 
+
+
 ---
 
 ## 📂 Project Structure
@@ -64,12 +66,12 @@ gcc *.c
 ```bash
 ./a.out
 ```
-## Future Improvements
+## Special features
 
-- Store contacts permanently using files
+- Store contacts permanently using files ✅
 - Case-insensitive search
-- Duplicate contact detection
-- Better input validation
+- Duplicate contact detection ✅
+- Better input validation ✅
 - Dynamic memory allocation
 
 ## Author

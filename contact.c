@@ -84,14 +84,14 @@ void createContact(AddressBook *addressBook)
     for (int i = 0; i < add_count; i++){
         
         do{
-        printf("Enter the name (<50 characters): ");
+        printf("Enter the name : ");
         scanf(" %49[^\n]", name);
         ret = validateName(name);
         }while(!ret);
         strcpy(addressBook->contacts[addressBook->contactCount].name,name);
         
         do{
-            printf("Enter the phone (0-9) : ");
+            printf("Enter the phone : ");
             scanf(" %[^\n]", phone);
             ret = validatePhone(phone, addressBook);
         }while(!ret);
@@ -233,6 +233,10 @@ int validateName(const char name[]){
 
 int validatePhone(const char *phone, AddressBook *addressBook){
 
+    if(strlen(phone) != 10){
+        printf("The phone number should be exactly 10 digits!\n");
+        return 0;
+    }
     //loop for checking uniqueness
     for (int i = 0; i < addressBook->contactCount; i++){
         if(strcmp(addressBook->contacts[addressBook->contactCount].phone, phone) == 0){
@@ -254,6 +258,7 @@ int validatePhone(const char *phone, AddressBook *addressBook){
     
     return 1;
 }
+
 int validateEmail(char *email, AddressBook *addressBook){
     int at_count = 0;
     
