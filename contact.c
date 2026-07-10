@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "contact.h"
 #include "file.h"
 #include "populate.h"
@@ -76,17 +77,32 @@ void saveAndExit(AddressBook *addressBook) {
 
 void createContact(AddressBook *addressBook)
 {
-	/* Define the logic to create a Contacts */
-    int add_count;
+    int add_count, ret;
+    char name[50], phone[20], email[50];
     printf("How many contacts to add? : ");
     scanf("%d", &add_count);
     for (int i = 0; i < add_count; i++){
-        printf("Enter the name : ");
-        scanf(" %[^\n]", addressBook->contacts[addressBook->contactCount].name);
-        printf("Enter the phone : ");
-        scanf("%s", addressBook->contacts[addressBook->contactCount].phone);
-        printf("Enter the email : ");
-        scanf("%s", addressBook->contacts[addressBook->contactCount].email);
+        
+        do{
+        printf("Enter the name (<50 characters): ");
+        scanf(" %49[^\n]", name);
+        ret = validateName(name);
+        }while(!ret);
+        strcpy(addressBook->contacts[addressBook->contactCount].name,name);
+        
+        do{
+            printf("Enter the phone (0-9) : ");
+            scanf(" %[^\n]", phone);
+            ret = validatePhone(phone, addressBook);
+        }while(!ret);
+        strcpy(addressBook->contacts[addressBook->contactCount].phone,phone);
+        
+        do{
+            printf("Enter the email : ");
+            scanf(" %[^\n]", email);
+            ret = validateEmail(email, addressBook);
+        }while(!ret);
+        strcpy(addressBook->contacts[addressBook->contactCount].email, email);
         addressBook->contactCount++;
     }
 
@@ -194,4 +210,79 @@ void deleteContact(AddressBook *addressBook)
 
     printf("Contact not found! Enter the correct existing name to delete the contact.");
    
+}
+
+int validateName(const char name[]){
+    if (strlen(name) == 0) {
+        printf("The name should be between 1 and 50 characters!\n");
+        return 0;
+    }
+    else{
+        for (int i = 0; name[i] != '\0'; i++) {
+            if (isalpha(name[i]) != 0 || name[i] == ' ') {
+                continue;
+            }
+            else {
+                printf("The name should only contain alphabets and spaces!\n");
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+int validatePhone(const char *phone, AddressBook *addressBook){
+
+    //loop for checking uniqueness
+    for (int i = 0; i < addressBook->contactCount; i++){
+        if(strcmp(addressBook->contacts[addressBook->contactCount].phone, phone) == 0){
+            printf("Duplicate phone number found!\nPlease enter new number\n");
+            return 0;
+        }
+    }
+
+    //loop for digit validation
+    for (int i = 0; phone[i] != '\0'; i++){
+        if(phone[i] >= '0' && phone[i] <= '9'){
+            continue;
+        }
+        else{
+            printf("Enter numbers from 0 - 9!\n");
+            return 0;
+        }
+    }
+    
+    return 1;
+}
+int validateEmail(char *email, AddressBook *addressBook){
+    int at_count = 0;
+    
+    //Loop to check for uniqness
+    for (int i = 0; i < addressBook->contactCount; i++){
+        if(strcmp(addressBook->contacts[addressBook->contactCount].email, email) == 0){
+            printf("Duplicate email id found!\nPlease enter a new email id\n");
+            return 0;
+        }
+    }
+
+    //loop for character validation
+    for (int i = 0; email[i] != '\0'; i++){
+        if(email[i] == ' '){
+            printf("Email address should have :\nNo spaces\nOnly one @\nA valid domain name\n");
+            return 0;
+        }
+        else if(email[i] == '@'){
+            if(at_count != 0){
+                printf("Email address should have :\nNo spaces\nOnly one @\nA valid domain name\n");
+                return 0;
+            }
+            at_count += 1;
+        }    
+        else if(email[i] >= 'A' && email[i] <= 'Z'){
+            email[i] = tolower(email[i]);
+        }
+    
+    }
+    
+    return 1;
 }

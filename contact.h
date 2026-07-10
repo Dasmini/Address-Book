@@ -21,5 +21,8 @@ void deleteContact(AddressBook *addressBook);
 void listContacts(AddressBook *addressBook);
 void initialize(AddressBook *addressBook);
 void saveContactsToFile(AddressBook *AddressBook);
+int validateName(const char *);
+int validatePhone(const char *, AddressBook *addressBook);
+int validateEmail(char *, AddressBook *addressBook);
 
 #endif
