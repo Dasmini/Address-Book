@@ -62,11 +62,10 @@ void listContacts(AddressBook *addressBook)
 }
 
 void initialize(AddressBook *addressBook) {
-    addressBook->contactCount = 0;
-    populateAddressBook(addressBook);
-    
-    // Load contacts from file during initialization (After files)
-    //loadContactsFromFile(addressBook);
+    //addressBook->contactCount = 0;
+    //populateAddressBook(addressBook);
+  
+    loadContactsFromFile(addressBook);
 }
 
 void saveAndExit(AddressBook *addressBook) {

@@ -1,3 +1,6 @@
+
+//********************************This file is not needed now ********************************** */
+
 #include "contact.h"
 // Dummy contact data
 static Contact dummyContacts[] = {
