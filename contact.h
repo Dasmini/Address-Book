@@ -24,5 +24,6 @@ void saveContactsToFile(AddressBook *AddressBook);
 int validateName(const char *);
 int validatePhone(const char *, AddressBook *addressBook);
 int validateEmail(char *, AddressBook *addressBook);
+int checkPattern(const char *phone);
 
 #endif
