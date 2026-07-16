@@ -99,6 +99,10 @@ gcc *.c -Wall -Wextra
 - Duplicate contact detection ✅
 - Better input validation ✅
 
+## Screenshots
+
+![Address Book Demo](Screenshots/AddressBook-Demo.png)
+
 ## Future Improvements
 
 - Multiple contact search results
