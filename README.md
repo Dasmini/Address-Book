@@ -19,24 +19,7 @@ A simple Address Book application developed in C.
   - Deletes the contact based on the entered detail
 - Save contacts to file
   - Saves the contact to the file so it becomes permenant 😃
-- Validation of details
-  - For Names : 
-    - Checks is there is not more than one space
-    - Checks if the characters are within 'A' - 'Z' and 'a' - 'z'
-  - For Phone numbers :
-    - Should have only 10 digits
-    - should be from 0 - 9
-    - No duplicate entries should be found in the existing data
-    - Should not start with numbers 0 - 5
-    - Should not have more than 5 and 4 sequential and concequtive numbers respectively. Eg. 8888856786, 1234564326.
-  - For Emails :
-    - No space should be entered
-    - Uppercase entries are converted to lowercase
-    - Only one '@' should be entered
-    - Only valid domain names allowed
-    - No duplicate entries should be found in the existing data
-
-
+- File Storage
 
 ---
 
@@ -58,7 +41,7 @@ Address-Book/
 
 ---
 
-## Technologies
+## Technologies Used
 
 - C
 - Git
@@ -73,7 +56,7 @@ This project helped me practice:
 - Arrays
 - Structures
 - Pointers
-- Strings
+- String Handling
 - Bubble sort
 - File handling
 - Modular Programming
@@ -83,7 +66,7 @@ This project helped me practice:
 ## compile
 
 ```bash
-gcc *.c
+gcc *.c -Wall -Wextra
 ```
 
 ## Run
@@ -91,13 +74,37 @@ gcc *.c
 ```bash
 ./a.out
 ```
+## Validation
+
+- Name
+  - Alphabets only
+  - One space allowed
+  - Maximum 49 characters
+- Phone number
+  - 10 digits
+  - From 0 - 9
+  - No duplicates
+  - Invalid patterns rejected
+- Email
+    - No space
+    - Uppercase entries are converted to lowercase
+    - Exactly one '@'
+    - Valid domain name
+    - No duplicates
+
 ## Special features
 
 - Store contacts permanently using files ✅
 - Case-insensitive search ✅
 - Duplicate contact detection ✅
 - Better input validation ✅
-- Dynamic memory allocation _-Coming soon..._
+
+## Future Improvements
+
+- Multiple contact search results
+- Partial name search
+- Better UI
+- Dynamic memory allocation
 
 ## Author
 
