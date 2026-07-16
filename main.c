@@ -18,7 +18,12 @@ int main()
     	printf("6. Save and Exit\n");		
         printf("7. Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        if(scanf("%d", &choice) != 1){
+            printf("Invalid choice!");
+            while(getchar() != '\n');
+            continue;
+        }
+        
         
         switch (choice) 
         {
@@ -42,7 +47,7 @@ int main()
                 saveContactsToFile(&addressBook);
                 break;
             case 7:
-                printf("Exiting without saving...\n");
+                exitWithoutSaving(&addressBook);
                 break;
             default:
                 printf("Invalid choice. Please try again.\n");

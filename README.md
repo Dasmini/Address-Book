@@ -33,6 +33,7 @@ A simple Address Book application developed in C.
     - No space should be entered
     - Uppercase entries are converted to lowercase
     - Only one '@' should be entered
+    - Only valid domain names allowed
     - No duplicate entries should be found in the existing data
 
 
@@ -96,7 +97,7 @@ gcc *.c
 - Case-insensitive search ✅
 - Duplicate contact detection ✅
 - Better input validation ✅
-- Dynamic memory allocation _Coming soon..._
+- Dynamic memory allocation _-Coming soon..._
 
 ## Author
 

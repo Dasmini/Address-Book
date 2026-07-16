@@ -21,9 +21,12 @@ void deleteContact(AddressBook *addressBook);
 void listContacts(AddressBook *addressBook);
 void initialize(AddressBook *addressBook);
 void saveContactsToFile(AddressBook *AddressBook);
+void exitWithoutSaving(AddressBook *addressBook);
 int validateName(const char *);
 int validatePhone(const char *, AddressBook *addressBook);
 int validateEmail(char *, AddressBook *addressBook);
 int checkPattern(const char *phone);
+int checkDomain(char *email);
+void clearBuffer();
 
 #endif
